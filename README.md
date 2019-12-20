@@ -46,7 +46,7 @@ Adriaan Hilbers. Department of Mathematics, Imperial College London. [a.hilbers1
 
 ## Acknowledgements
 
-Models are constructed in the modelling framework `Calliope`, created by Stefan Pfenninger and Bryn Pickering. See [callio.pe](callio.pe) or the following paper for details:
+Models are constructed in the modelling framework `Calliope`, created by Stefan Pfenninger and Bryn Pickering. See [callio.pe](https://callio.pe) or the following paper for details:
 
 - Pfenninger, S. and Pickering, B. (2018). Calliope: a multi-scale energy systems modelling framework. Journal of Open Source Software, 3(29), 825, doi:[10.21105/joss.00825](https://doi.org/10.21105/joss.00825).
 
