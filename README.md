@@ -1,4 +1,4 @@
-# 2019_importance_subsampling
+# 2020_bootstrap_uncertainty_quantification
 Data, model files and example code related to the paper "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap".
 
 
