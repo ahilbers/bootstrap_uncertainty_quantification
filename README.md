@@ -16,7 +16,9 @@ Data, model files and example code related to the paper "Quantifying demand and 
 
 ### Code
 
-- `main.py`: XXXX XXXX XXXX XXXX
+- `samplers.py`: functions for bootstrap sampling of the demand & wind time series: both the *months* and *weeks* scheme from the paper
+- `model_runs.py`: functions that perform power system model runs
+- `main.py`: a script that performs one full run through the methodology, using a single long simulation for a point estimate and multiple short simulations across shorter bootstrap samples to estimate the standard deviation
 
 
 
