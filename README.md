@@ -3,7 +3,7 @@ Data, model files and example code related to the paper "Quantifying demand and 
 
 The file `main.py` can be run directly from a command line and provides an example application of the *bootstrap uncertainty quantification* algorithm. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for different model outputs. Arguments can be specified directly in the script.
 
-This repository contains each of the three models discussed in the paper. The `1region_cont`, `6regions_cont` and `6regions_disc` models correspond to the *1-region LP*, *6-region LP* and *6-region MILP* models in the paper.
+This repository contains each of the three models discussed in the paper. The `1region_cont`, `6regions_cont` and `6regions_disc` models correspond to the *1-region LP*, *6-region LP* and *6-region MILP* models respectively in the paper.
 
 
 
