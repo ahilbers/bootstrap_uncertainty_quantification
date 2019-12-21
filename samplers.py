@@ -1,6 +1,8 @@
+"""Bootstrap sampling algorithms: the 'months' and 'weeks' schemes."""
+
+
 import numpy as np
 import pandas as pd
-import pdb
 
 
 def bootstrap_sample_weeks(data, num_weeks_per_season):

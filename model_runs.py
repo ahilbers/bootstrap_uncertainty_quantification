@@ -1,14 +1,16 @@
+"""Power system model runs, using Calliope framework."""
+
+
+import time
 import numpy as np
 import pandas as pd
-import time
-import functions as fn
+import samplers
 import calliope
-import pdb
 
 
 def run_model_1region(model, save_csv=False):
     """Run Calliope 1region model and return solution.
-    
+
     Parameters:
     -----------
     model: Calliope model to be evaluated
@@ -398,9 +400,9 @@ def run_bootstrap_simulation(model_name, scheme, num_blocks_per_bin,
 
     # Create bootstrap sample and run model
     if scheme == 'months':
-        sample = fn.bootstrap_sample_months(data, num_blocks_per_bin)
+        sample = samplers.bootstrap_sample_months(data, num_blocks_per_bin)
     elif scheme == 'weeks':
-        sample = fn.bootstrap_sample_weeks(data, num_blocks_per_bin)
+        sample = samplers.bootstrap_sample_weeks(data, num_blocks_per_bin)
     else:
         raise ValueError('Must be either months or weeks scheme')
 
@@ -410,16 +412,19 @@ def run_bootstrap_simulation(model_name, scheme, num_blocks_per_bin,
     return results
 
 
-def calculate_bootstrap_variance(model_name,
-                                 bootstrap_scheme,
-                                 num_blocks_per_bin,
-                                 num_simulations):
-    """Calculate variance across bootstrap samples.
+def run_buq_algorithm(model_name,
+                      point_sample_length,
+                      bootstrap_scheme,
+                      num_blocks_per_bin,
+                      num_bootstrap_samples):
+    """Run through BUQ algorithm once to estimate standard deviation.
 
     Parameters:
     -----------
     model_name (str) : e.g. '1region_cont' or '6regions_disc'
-    bootstrap_scheme (str) : bootstrap scheme for calculating standard
+    point_sample_length (int) : length of sample used to determine point
+        estimate (in hours), used only for rescaling
+    boostrap scheme (str) : bootstrap scheme for calculating standard
         deviation: 'months' or 'weeks'
     num_blocks_per_bin (int) : number of months from each calendar month
         or number of weeks from each season
@@ -428,38 +433,52 @@ def calculate_bootstrap_variance(model_name,
 
     Returns:
     --------
-    estimate_with_stdev (pandas DataFrame) : has 2 columns: the point
-        estimates and the stdev of the relevant model outputs
+    point_estimate_stdev (pandas DataFrame) : estimates for the standard
+        deviation of each model output
     """
 
+    if bootstrap_scheme == 'weeks':
+        bootstrap_sample_length = num_blocks_per_bin * 4 * 7 * 24
+    if bootstrap_scheme == 'months':
+        bootstrap_sample_length = num_blocks_per_bin * 8760
+
+    # Calculate variance across bootstrap samples
+    print('Calculating stdev estimate...')
+    print('Starting bootstrap samples')
+
     # Run model for each bootstrap sample
-    run_index = np.arange(num_simulations)
+    run_index = np.arange(num_bootstrap_samples)
     for sample_num in run_index:
         print('Calculating bootstrap sample {}...'.format(sample_num+1))
         results = run_bootstrap_simulation(model_name,
                                            bootstrap_scheme,
                                            num_blocks_per_bin)
         if sample_num == 0:
-            outputs = pd.DataFrame(columns=np.arange(num_simulations),
+            outputs = pd.DataFrame(columns=np.arange(num_bootstrap_samples),
                                    index=results.index)
         outputs[sample_num] = results.loc[:, 'output']
-        variance = outputs.var(axis=1)
         print('Done.')
 
     # Calculate variance across model outputs
-    variance = outputs.var(axis=1)
+    bootstrap_variance = outputs.var(axis=1)
 
-    return variance
+    # Rescale variance to determine stdev of point estimate
+    point_estimate_variance = \
+        (bootstrap_sample_length/point_sample_length) * bootstrap_variance
+    point_estimate_stdev = pd.DataFrame(np.sqrt(point_estimate_variance),
+                                        columns=['stdev'])
+    print('Done calculating stdev estimate.')
+
+    return point_estimate_stdev
 
 
-def run_buq_algorithm(model_name,
-                      point_estimate_range,
-                      bootstrap_scheme,
-                      num_blocks_per_bin,
-                      num_bootstrap_samples):
-    """Run through BUQ algorithm once: conduct a single long simulation
-    for point estimates, and multiple short ones for standard deviation
-    estimates.
+def calculate_point_estimate_and_stdev(model_name,
+                                       point_estimate_range,
+                                       bootstrap_scheme,
+                                       num_blocks_per_bin,
+                                       num_bootstrap_samples):
+    """Calculate point estimate using a single long simulation and estimate
+    standard deviation using multiple short simulations and BUQ algorithm.
 
     Parameters:
     -----------
@@ -480,41 +499,32 @@ def run_buq_algorithm(model_name,
         estimates and the stdev of the relevant model outputs
     """
 
-    pe_lower, pe_upper = point_estimate_range
-
-    point_sample_length = 8760 * (pe_upper - pe_lower + 1)
-    if bootstrap_scheme == 'weeks':
-        bootstrap_sample_length = num_blocks_per_bin * 4 * 7 * 24
-    if bootstrap_scheme == 'months':
-        bootstrap_sample_length = num_blocks_per_bin * 8760
+    point_sample_length = 8760 * (point_estimate_range[1]
+                                  - point_estimate_range[0] + 1)
 
     # Calculate point estimate via single long simulation
     print('Calculating point estimate...')
-    point_estimate = run_years_simulation(
-        model_name=model_name,
-        startyear=point_estimate_range[0],
-        endyear=point_estimate_range[1]
-        )
+    point_estimate = run_years_simulation(model_name=model_name,
+                                          startyear=point_estimate_range[0],
+                                          endyear=point_estimate_range[1])
+    point_estimate = pd.DataFrame(point_estimate.values,
+                                  columns=['point_estimate'],
+                                  index=point_estimate.index)
     print('Done calculating point_estimate.')
+    
 
-    # Calculate variance across bootstrap samples
-    print('Calculating stdev estimate...')
-    print('Starting bootstrap samples')
-    bootstrap_variance = calculate_bootstrap_variance(
-        model_name=model_name,
-        bootstrap_scheme=bootstrap_scheme,
-        num_blocks_per_bin=num_blocks_per_bin,
-        num_simulations=num_bootstrap_samples
-        )
+    # Estimate standard deviation with BUQ algorithm
+    point_estimate_stdev = \
+        run_buq_algorithm(model_name=model_name,
+                          point_sample_length=point_sample_length,
+                          bootstrap_scheme=bootstrap_scheme,
+                          num_blocks_per_bin=num_blocks_per_bin,
+                          num_bootstrap_samples=num_bootstrap_samples)
+    point_estimate_stdev = pd.DataFrame(point_estimate_stdev.values,
+                                        columns=['stdev'],
+                                        index=point_estimate_stdev.index)
 
-    # Rescale variance to determine stdev of point estimate
-    point_estimate_variance = \
-        (bootstrap_sample_length/point_sample_length) * bootstrap_variance
-    point_estimate_stdev = pd.DataFrame(np.sqrt(point_estimate_variance),
-                                        columns=['stdev'])
-    print('Done calculating stdev estimate.')
-
+    # Create single dataframe with point and standard deviation estimate
     estimate_with_stdev = point_estimate.join(point_estimate_stdev)
-    estimate_with_stdev.columns = ['point_estimate', 'stdev']
 
     return estimate_with_stdev
