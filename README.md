@@ -12,7 +12,7 @@ This repository contains each of the three models discussed in the paper. The `1
 
 ### Modelling & data files
 
-- `models/`: power system model generating files, for `Calliope` (see acknowledgements)
+- `models/`: power system model generating files, for `Calliope` (see acknowledgements). The `demand_wind.csv` files present under `timeseries_data` in each model are just placeholders used to initialise the model, and the correct data is loaded in later.
 - `data/`: demand and weather time series data
   - `demand_wind_1region.csv`: demand and wind time series used in *1-region LP* model in paper
   - `demand_wind_6regions.csv`: demand and wind time series used in *6-region LP* and *6-region MILP* models in paper

@@ -299,38 +299,40 @@ def run_simulation(model_name, data, save_csv=False):
 
     start = time.time()
 
-    # Create the model with possible time subset
-    if data is None:
-        model = calliope.Model('models/' + model_name + '/model.yaml')
-    else:
-        last_ts = str(pd.date_range(start='1980-01-01 00:00:00',
-                                    freq='h', periods=data.shape[0])[-1])
-        override_dict = {'model.subset_time':
-                         ['1980-01-01 00:00:00', last_ts]}
-        model = calliope.Model('models/' + model_name + '/model.yaml',
-                               override_dict=override_dict)
-        if '1region' in model_name:
-            tseries_in = model.inputs.resource
-            tseries_in.loc['region1::demand_power'].values[:] = \
-                -data.loc[:, 'demand']
-            tseries_in.loc['region1::wind'].values[:] = \
-                data.loc[:, 'wind']
+    # Create the model with possible time subset. Calliope requires a
+    # CSV file to be present when initialising the model, so it uses
+    # the 'demand_wind.csv' files (with all zeros) in the model directory
+    last_ts = str(pd.date_range(start='1980-01-01 00:00:00',
+                                freq='h', periods=data.shape[0])[-1])
+    override_dict = {'model.subset_time':
+                     ['1980-01-01 00:00:00', last_ts]}
+    model = calliope.Model('models/' + model_name + '/model.yaml',
+                           override_dict=override_dict)
 
-        if '6regions' in model_name:
-            # results = run_model_6regions(model, save_csv=save_csv)
-            tseries_in = model.inputs.resource
-            tseries_in.loc['region2::demand_power'].values[:] = \
-                -data.loc[:, 'demand_region2']
-            tseries_in.loc['region4::demand_power'].values[:] = \
-                -data.loc[:, 'demand_region4']
-            tseries_in.loc['region5::demand_power'].values[:] = \
-                -data.loc[:, 'demand_region5']
-            tseries_in.loc['region2::wind'].values[:] = \
-                data.loc[:, 'wind_region2']
-            tseries_in.loc['region5::wind'].values[:] = \
-                data.loc[:, 'wind_region5']
-            tseries_in.loc['region6::wind'].values[:] = \
-                data.loc[:, 'wind_region6']
+    # Load on correct time series data
+    if '1region' in model_name:
+        tseries_in = model.inputs.resource
+        tseries_in.loc['region1::demand_power'].values[:] = \
+            -data.loc[:, 'demand']
+        tseries_in.loc['region1::wind'].values[:] = \
+            data.loc[:, 'wind']
+
+    # Load on correct time series data
+    if '6regions' in model_name:
+        # results = run_model_6regions(model, save_csv=save_csv)
+        tseries_in = model.inputs.resource
+        tseries_in.loc['region2::demand_power'].values[:] = \
+            -data.loc[:, 'demand_region2']
+        tseries_in.loc['region4::demand_power'].values[:] = \
+            -data.loc[:, 'demand_region4']
+        tseries_in.loc['region5::demand_power'].values[:] = \
+            -data.loc[:, 'demand_region5']
+        tseries_in.loc['region2::wind'].values[:] = \
+            data.loc[:, 'wind_region2']
+        tseries_in.loc['region5::wind'].values[:] = \
+            data.loc[:, 'wind_region5']
+        tseries_in.loc['region6::wind'].values[:] = \
+            data.loc[:, 'wind_region6']
 
     # Run model
     if '1region' in model_name:
@@ -511,7 +513,7 @@ def calculate_point_estimate_and_stdev(model_name,
                                   columns=['point_estimate'],
                                   index=point_estimate.index)
     print('Done calculating point_estimate.')
-    
+
 
     # Estimate standard deviation with BUQ algorithm
     point_estimate_stdev = \
