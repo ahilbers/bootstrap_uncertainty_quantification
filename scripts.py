@@ -452,12 +452,12 @@ def calculate_bootstrap_variance(model_name,
     return variance
 
 
-def estimate_point_and_stdev(model_name,
-                             point_estimate_range,
-                             bootstrap_scheme,
-                             num_blocks_per_bin,
-                             num_bootstrap_samples):
-    """Run through methodology once: conduct a single long simulation
+def run_buq_algorithm(model_name,
+                      point_estimate_range,
+                      bootstrap_scheme,
+                      num_blocks_per_bin,
+                      num_bootstrap_samples):
+    """Run through BUQ algorithm once: conduct a single long simulation
     for point estimates, and multiple short ones for standard deviation
     estimates.
 

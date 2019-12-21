@@ -15,7 +15,7 @@ def run_example():
     num_bootstrap_samples = 10
 
     # Run the methodology, return point estimates and stdev estimates
-    results = sc.estimate_point_and_stdev(
+    results = sc.run_buq_algorithm(
         model_name=model_name,
         point_estimate_range=point_estimate_range,
         bootstrap_scheme=bootstrap_scheme,

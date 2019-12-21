@@ -8,7 +8,7 @@ Data, model files and example code related to the paper "Quantifying demand and 
 
 ### Modelling & data files
 
-- `model_files/`: power system model generating files, for `Calliope` (see acknowledgements)
+- `models/`: power system model generating files, for `Calliope` (see acknowledgements)
 - `data/`: demand and weather time series data
   - `demand_wind_1region.csv`: demand and wind time series used in *1-region LP* model in paper
   - `demand_wind_6regions.csv`: demand and wind time series used in *6-region LP* and *6-region MILP* models in paper
