@@ -1,6 +1,8 @@
 # 2020_bootstrap_uncertainty_quantification
 Data, model files and example code related to the paper "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap".
 
+The file `main.py` can be run directly from a command line and provides an example application of the *bootstrap uncertainty quantification* algorithm. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for different model outputs. Arguments can be specified directly in the script.
+
 
 
 
@@ -18,7 +20,7 @@ Data, model files and example code related to the paper "Quantifying demand and 
 
 - `samplers.py`: functions for bootstrap sampling of the demand & wind time series: both the *months* and *weeks* scheme from the paper
 - `model_runs.py`: functions that perform power system model runs
-- `main.py`: a script that performs one full run through the methodology, using a single long simulation for a point estimate and multiple short simulations across shorter bootstrap samples to estimate the standard deviation
+- `main.py`: a script that performs one full run through the methodology, using a single long simulation for a point estimate and multiple short simulations across bootstrap samples to estimate the standard deviation. It can be run directly from a command line.
 
 
 
@@ -29,11 +31,11 @@ Since `main.py`, containing all code, is a short file with only a few functions,
 
 Running `main.py` requires:
 - Python modules:
-  - `Calliope 0.64`:  see [this link](https://calliope.readthedocs.io/en/stable/user/installation.html) for installation. By default, `Calliope` is installed in a virtual environment, which we assume is called `calliope`.
+  - `Calliope 0.6.4`:  see [this link](https://calliope.readthedocs.io/en/stable/user/installation.html) for installation.
   - `numpy 1.62.2`
   - `pandas 0.24.2`
 - Other:
-  - `cbc`: open-source optimiser: see [this link](https://projects.coin-or.org/Cbc) for installation. Other solvers (e.g. `gurobi`) are also possible -- the solver can be specified in `model_files/model.yaml`.
+  - `cbc`: open-source optimiser: see [this link](https://projects.coin-or.org/Cbc) for installation. Other solvers (e.g. `gurobi`) are also possible -- the solver can be specified in `models/{MODEL_NAME}/model.yaml`.
 
 
 
