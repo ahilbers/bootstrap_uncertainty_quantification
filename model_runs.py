@@ -378,9 +378,9 @@ def run_bootstrap_simulation(model_name, scheme, num_blocks_per_bin,
     Parameters:
     -----------
     model_name e.g. '1region_cont' or '6regions_disc'
-    scheme: either 'months' or 'weeks' -- scheme used to create bootstrap 
+    scheme: either 'months' or 'weeks' -- scheme used to create bootstrap
         samples
-    num_blocks_per_bin: either the number of months sampled from each 
+    num_blocks_per_bin: either the number of months sampled from each
         calendar month, or the number of weeks sampled from each season
     save_csv: whether to save csv outputs (insert directory name)
 
@@ -419,7 +419,7 @@ def calculate_bootstrap_variance(model_name,
     Parameters:
     -----------
     model_name (str) : e.g. '1region_cont' or '6regions_disc'
-    bootstrap_scheme (str) : bootstrap scheme for calculating standard 
+    bootstrap_scheme (str) : bootstrap scheme for calculating standard
         deviation: 'months' or 'weeks'
     num_blocks_per_bin (int) : number of months from each calendar month
         or number of weeks from each season
@@ -467,7 +467,7 @@ def run_buq_algorithm(model_name,
     point_estimate_range (list) : range of years over which to calculate
         point estimate, e.g. [2017, 2017] for just the year 2017 (includes
         endpoints).
-    boostrap scheme (str) : bootstrap scheme for calculating standard 
+    boostrap scheme (str) : bootstrap scheme for calculating standard
         deviation: 'months' or 'weeks'
     num_blocks_per_bin (int) : number of months from each calendar month
         or number of weeks from each season
