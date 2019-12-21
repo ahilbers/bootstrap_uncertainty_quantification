@@ -36,7 +36,7 @@ def run_example():
     point_estimate_range = [2017, 2017]   # Includes endpoints
     bootstrap_scheme = 'weeks'
     num_blocks_per_bin = 2
-    num_bootstrap_samples = 100
+    num_bootstrap_samples = 30
 
     # Run the methodology, return point estimates and stdev estimates
     results = model_runs.calculate_point_estimate_and_stdev(
