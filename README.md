@@ -47,7 +47,7 @@ Running `main.py` requires:
 
 ## Contact
 
-Adriaan Hilbers. Department of Mathematics, Imperial College London. [a.hilbers17@imperial.ac.uk](mailto:a.hilbers17@imperial.ac.uk).
+[Adriaan Hilbers](https://ahilbers.github.io). Department of Mathematics, Imperial College London. [a.hilbers17@imperial.ac.uk](mailto:a.hilbers17@imperial.ac.uk).
 
 
 
