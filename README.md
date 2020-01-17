@@ -5,6 +5,8 @@ The file `main.py` can be run directly from a command line and provides an examp
 
 This repository contains each of the three models discussed in the paper. The `1region_cont`, `6regions_cont` and `6regions_disc` models correspond to the *1-region LP*, *6-region LP* and *6-region MILP* models respectively in the paper.
 
+The models used in this paper come from a larger class of test power system models, which are available as open-source software in [this repository](https://ahilbers.github.io). In this repository the models are properly documented, so if you want to use them for your own research, its easier to use that respository instead of this one.
+
 
 
 
