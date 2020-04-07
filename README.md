@@ -1,4 +1,6 @@
-# 2020_bootstrap_uncertainty_quantification
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+
+# bootstrap_uncertainty_quantification
 Data, model files and example code related to the paper "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap".
 
 The file `main.py` can be run directly from a command line and provides an example application of the *bootstrap uncertainty quantification* algorithm. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for different model outputs. Arguments can be specified directly in the script.
