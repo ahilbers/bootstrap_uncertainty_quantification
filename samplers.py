@@ -26,8 +26,8 @@ def bootstrap_sample_weeks(data, num_weeks_per_season):
                             (data.index.month.isin(bins[bin_num]))]
             num_days = data_sel.shape[0]/24
             possible_startdays = np.arange(num_days - 7 + 1)
-            sample_index = 24*np.random.choice(possible_startdays) + \
-                np.arange(7*24)
+            sample_index = (24*np.random.choice(possible_startdays)
+                            + np.arange(7*24))
             sample = data_sel.iloc[sample_index]
             output[k:k+sample.shape[0]] = sample.values
             k = k + sample.shape[0]
@@ -36,11 +36,12 @@ def bootstrap_sample_weeks(data, num_weeks_per_season):
     if data.shape[1] == 2:
         output_columns = ['demand', 'wind']
     if data.shape[1] == 6:
-        output_columns = \
-            ['demand_region2', 'demand_region4', 'demand_region5',
-             'wind_region2', 'wind_region5', 'wind_region6']
-    output = pd.DataFrame(output, index=np.arange(sample_length),
-                          columns=output_columns)
+        output_columns = ['demand_region2', 'demand_region4',
+                          'demand_region5', 'wind_region2',
+                          'wind_region5', 'wind_region6']
+    index = pd.to_datetime(np.arange(sample_length),
+                           origin='2020', unit='h')  # Dummy datetime index
+    output = pd.DataFrame(output, index=index, columns=output_columns)
 
     return output
 
@@ -84,10 +85,11 @@ def bootstrap_sample_months(data, num_years):
     if data.shape[1] == 2:
         output_columns = ['demand', 'wind']
     if data.shape[1] == 6:
-        output_columns = \
-            ['demand_region2', 'demand_region4', 'demand_region5',
-             'wind_region2', 'wind_region5', 'wind_region6']
-    output = pd.DataFrame(years_np, index=np.arange(years_np.shape[0]),
-                          columns=output_columns)
+        output_columns = ['demand_region2', 'demand_region4',
+                          'demand_region5', 'wind_region2',
+                          'wind_region5', 'wind_region6']
+    index = pd.to_datetime(np.arange(years_np.shape[0]),
+                           origin='2020', unit='h')  # Dummy datetime index
+    output = pd.DataFrame(years_np, index=index, columns=output_columns)
 
     return output
