@@ -5,9 +5,7 @@ Data, model files and example code related to the paper "Quantifying demand and 
 
 The file `main.py` can be run directly from a command line and provides an example application of the *bootstrap uncertainty quantification* algorithm. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for different model outputs. Arguments can be specified directly in the script.
 
-This repository contains each of the three models discussed in the paper. The `1region_cont`, `6regions_cont` and `6regions_disc` models correspond to the *1-region LP*, *6-region LP* and *6-region MILP* models respectively in the paper.
-
-The models used in this paper come from a larger class of test power system models, which are available as open-source software in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
+This repository also contains all source code and data associated with the three test-case models used in the paper (the *1-region LP*, *6-region LP* and *6-region MILP* models). These models are specific examples from a larger class of test power system models, available as open-source software in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
 
 
 
@@ -16,10 +14,10 @@ The models used in this paper come from a larger class of test power system mode
 
 ### Modelling & data files
 
-- `models/`: power system model generating files, for `Calliope` (see acknowledgements). The `demand_wind.csv` files present under `timeseries_data` in each model are just placeholders used to initialise the model, and the correct data is loaded in later.
+- `models/`: power system model generating files, for `Calliope` (see acknowledgements). The *6-region LP* and *6-region MILP* models both share a common base as described by the files in *models/6_region/*.
 - `data/`: demand and weather time series data
-  - `demand_wind_1region.csv`: demand and wind time series used in *1-region LP* model in paper
-  - `demand_wind_6regions.csv`: demand and wind time series used in *6-region LP* and *6-region MILP* models in paper
+  - `demand_wind_1_region.csv`: demand and wind time series used in *1-region LP* model in paper
+  - `demand_wind_6_region.csv`: demand and wind time series used in *6-region LP* and *6-region MILP* models in paper
 
 
 ### Code
@@ -35,13 +33,14 @@ The models used in this paper come from a larger class of test power system mode
 
 Since `main.py`, containing all code, is a short file with only a few functions, it's probably easier to directly copy-paste any relevant code into a personal project as opposed to installing a new module. For this reason, this repository does not contain a `setup.py` file.
 
-Running `main.py` requires:
+Running `main.py` works with:
 - Python modules:
-  - `Calliope 0.6.4`:  see [this link](https://calliope.readthedocs.io/en/stable/user/installation.html) for installation.
+  - `Calliope 0.6.5`:  see [this link](https://calliope.readthedocs.io/en/stable/user/installation.html) for installation.
   - `numpy 1.62.2`
   - `pandas 0.24.2`
 - Other:
   - `cbc`: open-source optimiser: see [this link](https://projects.coin-or.org/Cbc) for installation. Other solvers (e.g. `gurobi`) are also possible -- the solver can be specified in `models/{MODEL_NAME}/model.yaml`.
+All code is known to run with the above setup, but may also run with different verions than those specified above.
 
 
 
