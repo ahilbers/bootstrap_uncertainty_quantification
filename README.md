@@ -14,7 +14,7 @@ This repository also contains all source code and data associated with the three
 
 ### Modelling & data files
 
-- `models/`: power system model generating files, for `Calliope` (see acknowledgements). The *6-region LP* and *6-region MILP* models both share a common base as described by the files in *models/6_region/*.
+- `models/`: power system model generating files, for `Calliope` (see acknowledgements). The *6-region LP* and *6-region MILP* models both share a common base as described by the files in `models/6_region/`.
 - `data/`: demand and weather time series data
   - `demand_wind_1_region.csv`: demand and wind time series used in *1-region LP* model in paper
   - `demand_wind_6_region.csv`: demand and wind time series used in *6-region LP* and *6-region MILP* models in paper
