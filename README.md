@@ -1,11 +1,25 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
 # bootstrap_uncertainty_quantification
-Data, model files and example code related to the paper "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap".
 
-The file `main.py` can be run directly from a command line and provides an example application of the *bootstrap uncertainty quantification* algorithm. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for different model outputs. Arguments can be specified directly in the script.
+## Summary
+
+This repository contains data, model files and example code related to the paper "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap".
 
 This repository also contains all source code and data associated with the three test-case models used in the paper (the *1-region LP*, *6-region LP* and *6-region MILP* models). These models are specific examples from a larger class of test power system models, available as open-source software in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
+
+
+## Getting started
+
+To run an example of the methodology, simply run
+
+```
+python3 main.py
+```
+
+from a command line. This runs a very simple example of the methodology. To customise it, it's easiest to change arguments directly in `main.py` -- the settings can be specified in the function `run_example`. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for the outputs of the `LP_planning` model, run across 2017 data.
+
+
 
 
 

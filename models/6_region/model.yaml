@@ -9,64 +9,68 @@ model:
 
 run:
     objective_options.cost_class.monetary: 1
-    solver: cbc
+    solver: gurobi
     zero_threshold: 1e-10  # Round any value smaller to 0
 
 overrides:
-    plan:
-        run:
-            mode: plan
-    continuous:
-    # continuous baseload capacity
-        techs.baseload.constraints.energy_cap_max: inf
-    integer:
-    # baseload capacity in units of 3GW
-        techs.baseload.constraints.units_max: inf
-        techs.baseload.constraints.energy_cap_per_unit: 3
-    allow_unmet:
-        # plan mode only, unmet demand always allowed in operate mode
-        techs.unmet.costs.monetary.energy_cap: 0
-    operate:
+    plan:    # determine capacities
+        run.mode: plan
+    continuous:    # continuous nuclear capacity
+        techs.nuclear_region3.constraints.energy_cap_max: inf
+    integer:    # nuclear in units of 3GW
+        techs.nuclear_region3.constraints.units_max: inf
+        techs.nuclear_region3.constraints.energy_cap_per_unit: 3
+    allow_unmet:    # plan mode only -- always allowed in operate mode
+        techs.unmet_region2.costs.monetary.energy_cap: 0
+        techs.unmet_region4.costs.monetary.energy_cap: 0
+        techs.unmet_region5.costs.monetary.energy_cap: 0
+    operate:    # fixed capacities, unit commitment
         run:
             mode: operate
             cyclic_storage: False
             operation:
-                # maximise scheduling horizon
-                horizon: 332880  # hours
-                window: 332880  # hours
+                horizon: 672  # hours
+                window: 336  # hours
         locations:
             region1:
-                techs.baseload.constraints.energy_cap_equals: 10
-                techs.peaking.constraints.energy_cap_equals: 40
+                techs.ccgt_region1.constraints.energy_cap_equals: 31.00784
+                techs.ocgt_region1.constraints.energy_cap_equals: 18.66827
             region2:
-                techs.wind.constraints.resource_area_equals: 70
-                techs.unmet.constraints.energy_cap_equals: 1e10
+                techs.wind_region2.constraints.resource_area_equals: 35.4754
+                techs.unmet_region2.constraints.energy_cap_equals: 1e10
             region3:
-                techs.baseload.constraints.energy_cap_equals: 20
-                techs.peaking.constraints.energy_cap_equals: 50
+                techs.nuclear_region3.constraints.energy_cap_equals: 72
+                techs.nuclear_region3.constraints.energy_cap_per_unit: 3
+                techs.nuclear_region3.constraints.units_max: 24
+                techs.nuclear_region3.constraints.units_equals: 24
+                techs.nuclear_region3.constraints.energy_ramping: 0.2  # frac/hr
+                techs.nuclear_region3.constraints.energy_cap_min_use: 0.5  # frac
+                techs.ccgt_region3.constraints.energy_cap_equals: 42.43243
             region4:
-                techs.unmet.constraints.energy_cap_equals: 1e10
+                techs.unmet_region4.constraints.energy_cap_equals: 1e10
             region5:
-                techs.wind.constraints.resource_area_equals: 80
-                techs.unmet.constraints.energy_cap_equals: 1e10
+                techs.wind_region5.constraints.resource_area_equals: 80.30226
+                techs.unmet_region5.constraints.energy_cap_equals: 1e10
             region6:
-                techs.baseload.constraints.energy_cap_equals: 30
-                techs.peaking.constraints.energy_cap_equals: 60
-                techs.wind.constraints.resource_area_equals: 90
+                techs.ocgt_region6.constraints.energy_cap_equals: 24.35200
+                techs.wind_region6.constraints.resource_area_equals: 17.68513
         links:
             region1,region2:
-                techs.transmission_other.constraints.energy_cap_equals: 12
+                techs.transmission_region1_region2.constraints.energy_cap_equals: 33.25821
             region1,region5:
-                techs.transmission_region1to5.constraints.energy_cap_equals: 15
+                techs.transmission_region1_region5.constraints.energy_cap_equals: 16.41790
             region1,region6:
-                techs.transmission_other.constraints.energy_cap_equals: 16
+                techs.transmission_region1_region6.constraints.energy_cap_equals: 0.00000
             region2,region3:
-                techs.transmission_other.constraints.energy_cap_equals: 23
+                techs.transmission_region2_region3.constraints.energy_cap_equals: 35.63563
             region3,region4:
-                techs.transmission_other.constraints.energy_cap_equals: 34
+                techs.transmission_region3_region4.constraints.energy_cap_equals: 78.93929
             region4,region5:
-                techs.transmission_other.constraints.energy_cap_equals: 45
+                techs.transmission_region4_region5.constraints.energy_cap_equals: 9.888500
             region5,region6:
-                techs.transmission_other.constraints.energy_cap_equals: 56
+                techs.transmission_region5_region6.constraints.energy_cap_equals: 28.52746
     ramping:
-        techs.baseload.constraints.energy_ramping: 0.2  # frac/hr
+        techs.nuclear_region3.constraints.energy_ramping: 0.2  # frac/hr
+    gurobi:
+    # run with gurobi (faster commercial solver)
+        run.solver: gurobi
