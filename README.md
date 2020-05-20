@@ -26,7 +26,7 @@ Calliope: a multi-scale energy systems modelling framework. Journal of Open Sour
 
 
 
-## Getting started
+## Usage
 
 To run an example of the methodology, call
 
@@ -34,7 +34,9 @@ To run an example of the methodology, call
 python3 main.py
 ```
 
-from a command line. This runs a very simple example of the methodology. To customise it, it's easiest to change arguments directly in `main.py` -- the settings can be specified in the function `run_example`. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for the outputs of the `LP_planning` model, run across 2017 data. 
+from a command line. This runs a very simple example of the methodology. To customise it, it's easiest to change arguments directly in `main.py` -- the settings can be specified in the function `run_example`. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for the outputs of the `LP_planning` model, run across 2017 data.
+
+The default settings involve few and short samples, just to see if the methodology is working. If you want to actually use the method, it's recommended to increase the subsample length and number of subsamples. This can be done by changing the arguments in the `run_example` function in `main.py`.
 
 To keep things simple and clear, everything runs in series. If you'd like to see the full scale code, where the bootstrap runs can be performed in parallel on a computing cluster, email [Adriaan Hilbers](mailto:a.hilbers17@imperial.ac.uk).
 
