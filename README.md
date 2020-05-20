@@ -20,10 +20,6 @@ If you use this code in your own research, please cite the following paper:
 - Hilbers, A.P., Brayshaw, D.J., Gandy, A. (2019). Quantifying demand and weather uncertainty in power system models using the m out of n bootstrap. [arXiv:1912.10326](https://arxiv.org/abs/1912.10326).
 
 
-Calliope: a multi-scale energy systems modelling framework. Journal of Open Source Software, 3(29), 825, doi:[10.21105/joss.00825](https://doi.org/10.21105/joss.00825).
-
-
-
 
 
 ## Usage
