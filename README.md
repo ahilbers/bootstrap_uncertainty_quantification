@@ -13,6 +13,19 @@ It also contains all source code and data associated with the three test-case mo
 
 
 
+## How to cite
+
+If you use this code in your own research, please cite the following paper:
+
+- Hilbers, A.P., Brayshaw, D.J., Gandy, A. (2019). Quantifying demand and weather uncertainty in power system models using the m out of n bootstrap. [arXiv:1912.10326](https://arxiv.org/abs/1912.10326).
+
+
+Calliope: a multi-scale energy systems modelling framework. Journal of Open Source Software, 3(29), 825, doi:[10.21105/joss.00825](https://doi.org/10.21105/joss.00825).
+
+
+
+
+
 ## Getting started
 
 To run an example of the methodology, call
@@ -32,19 +45,18 @@ To keep things simple and clear, everything runs in series. If you'd like to see
 
 ## Contains
 
-### Modelling & data files
+### Model & data files
 
-- `models/`: power system model generating files, for `Calliope` (see acknowledgements). The *6-region LP* and *6-region MILP* models both share a common base as described by the files in `models/6_region/`.
+- `models/`: power system model generating files, for `Calliope` (see acknowledgements).
 - `data/`: demand and weather time series data
-  - `demand_wind_1_region.csv`: demand and wind time series used in *1-region LP* model in paper
-  - `demand_wind_6_region.csv`: demand and wind time series used in *6-region LP* and *6-region MILP* models in paper
 
 
 ### Code
 
+- `main.py`: a script that performs one full run through the methodology, using a single long simulation for a point estimate and multiple short simulations across bootstrap samples to estimate the standard deviation. It can be called from a command line.
 - `samplers.py`: functions for bootstrap sampling of the demand & wind time series: both the *months* and *weeks* scheme from the paper
-- `model_runs.py`: functions that perform power system model runs
-- `main.py`: a script that performs one full run through the methodology, using a single long simulation for a point estimate and multiple short simulations across bootstrap samples to estimate the standard deviation. It can be run directly from a command line.
+- `models.py`: some utility code for the models
+- `tests.py`: some tests to check if the models are behaving as expected.
 
 
 
@@ -59,7 +71,7 @@ Running `main.py` works with:
   - `numpy 1.62.2`
   - `pandas 0.24.2`
 - Other:
-  - `cbc`: open-source optimiser: see [this link](https://projects.coin-or.org/Cbc) for installation. Other solvers (e.g. `gurobi`) are also possible -- the solver can be specified in `models/{MODEL_NAME}/model.yaml`.
+  - `cbc`: open-source optimiser: see [this link](https://projects.coin-or.org/Cbc) for installation. Other solvers (e.g. `gurobi`) are also possible -- the solver can be specified in `models/6_region/model.yaml`.
 All code is known to run with the above setup, but may also run with different verions than those specified above.
 
 
