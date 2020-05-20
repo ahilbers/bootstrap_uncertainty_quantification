@@ -248,8 +248,7 @@ def run_example():
     """Run an example of the methodology.
 
     Arguments can be specified below. Notes:
-    - For model_name_in_paper, the possibilities are 1_region_LP,
-      6_region_LP and 6_region_MILP
+    - model_name_in_paper: 'LP_planning', 'MILP_planning' or 'operate'
     - num_blocks_per_bin: depends on the bootstrap scheme:
       - 'months': number of times each week is sampled, so that the total
         subsample size is (365*num_blocks_per_bin) days.
@@ -258,7 +257,7 @@ def run_example():
     """
 
     # Arguments -- change as desired, see notes above
-    model_name_in_paper = 'operation'
+    model_name_in_paper = 'LP_planning'
     point_estimate_range = [2017, 2017]   # Includes endpoints
     bootstrap_scheme = 'weeks'
     num_blocks_per_bin = 1
