@@ -7,7 +7,6 @@ algorithm. Arguments can be specified in the function 'run_example'
 import os
 import time
 import logging
-import logging
 import calliope
 import numpy as np
 import pandas as pd
