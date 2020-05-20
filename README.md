@@ -70,8 +70,7 @@ Since `main.py`, containing all code, is a short file with only a few functions,
 Running `main.py` works with:
 - Python modules:
   - `Calliope 0.6.5`:  see [this link](https://calliope.readthedocs.io/en/stable/user/installation.html) for installation.
-  - `numpy 1.62.2`
-  - `pandas 0.24.2`
+  - Basic modules: `numpy`, `pandas`.
 - Other:
   - `cbc`: open-source optimiser: see [this link](https://projects.coin-or.org/Cbc) for installation. Other solvers (e.g. `gurobi`) are also possible -- the solver can be specified in `models/6_region/model.yaml`.
 All code is known to run with the above setup, but may also run with different verions than those specified above.
