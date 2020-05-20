@@ -4,9 +4,13 @@
 
 ## Summary
 
-This repository contains data, model files and example code related to the paper "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap".
+This repository contains example code related to the paper "Efficient quantification of the impact of demand and weather uncertainty in power system models".
 
-This repository also contains all source code and data associated with the three test-case models used in the paper (the *1-region LP*, *6-region LP* and *6-region MILP* models). These models are specific examples from a larger class of test power system models, available as open-source software in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
+This repository also contains all source code and data associated with the three test-case models used in the paper (the *LP planning*, *MILP planning* and *operation* models). These models are modified versions from a more general class of test power system models, available as open-source software in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
+
+**Note**: In a previous iteration, this paper was called "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap, of which a preprint is available on arXiv [here](https://arxiv.org/abs/1912.10326). The models have changed slightly since that version. If you've come from that preprint, check out release v1.0.0 of this repository.
+
+
 
 
 ## Getting started
