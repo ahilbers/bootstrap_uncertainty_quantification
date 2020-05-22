@@ -42,8 +42,8 @@ This repository contains a few tests and benchmarks which can be used to check i
 ### Code
 
 - `main.py`: a script that performs one full run through the methodology, using a single long simulation for a point estimate and multiple short simulations across bootstrap samples to estimate the standard deviation. It can be called from a command line.
-- `buq.py`: functions for the bootstrap uncertainty quantification (BUQ) algorithm, both the *months* and *weeks* scheme from the paper
-- `models.py`: some utility code for the models
+- `buq.py`: functions for the bootstrap uncertainty quantification (BUQ) algorithm, both the *months* and *weeks* scheme from the paper.
+- `models.py`: some utility code for the models.
 - `tests.py`: some tests to check if the models are behaving as expected.
 
 
