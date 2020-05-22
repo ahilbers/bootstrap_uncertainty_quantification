@@ -22,7 +22,7 @@ def run_example():
     """
 
     # Arguments -- change as desired, see notes above
-    model_name_in_paper = 'operation'
+    model_name_in_paper = 'LP_planning'
     point_estimate_range = [2017, 2017]   # Includes endpoints
     bootstrap_scheme = 'weeks'
     num_blocks_per_bin = 3
