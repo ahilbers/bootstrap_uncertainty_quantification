@@ -8,16 +8,6 @@ This repository contains example code related to the paper "Efficient quantifica
 
 It also contains all source code and data associated with the three test-case models used in the paper (the *LP planning*, *MILP planning* and *operation* models). These models are modified versions of a more general class of test power system models, available open-source in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
 
-**Note**: In a previous iteration, this paper was called "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap, of which a preprint is available on arXiv [here](https://arxiv.org/abs/1912.10326). The models have changed slightly since that version. If you've come from that preprint, check out release v1.0.0 of this repository.
-
-
-
-
-## How to cite
-
-If you use this code in your own research, please cite the following paper:
-
-- Hilbers, A.P., Brayshaw, D.J., Gandy, A. (2019). Quantifying demand and weather uncertainty in power system models using the m out of n bootstrap. [arXiv:1912.10326](https://arxiv.org/abs/1912.10326).
 
 
 
@@ -36,9 +26,6 @@ The default settings use short samples to run quickly. If you want to actually u
 
 This repository contains a few tests and benchmarks which can be used to check if the code is running as expected. Running `tests.py` from a command line starts a number of consistency tests and checks the outputs from a very simple application fo the BUQ algorithm against a set of benchmarks. It should take around 10-15 minutes to run, and will log whether all tests pass.
 
-To keep things simple and clear, everything runs in series. If you'd like to see the full scale code, where the bootstrap runs can be performed in parallel on a computing cluster, email [Adriaan Hilbers](mailto:a.hilbers17@imperial.ac.uk).
-
-
 
 
 
@@ -49,7 +36,7 @@ To keep things simple and clear, everything runs in series. If you'd like to see
 
 - `models/`: power system model generating files, for `Calliope` (see acknowledgements).
 - `data/`: demand and weather time series data
-- `test_benchmarks`: some benchmarks to see if install worked correctly -- used by `tests.py`
+- `test_benchmarks`: some benchmarks -- used by `tests.py` to see if things are working correctly.
 
 
 ### Code
@@ -64,7 +51,7 @@ To keep things simple and clear, everything runs in series. If you'd like to see
 
 ## Requirements & Installation
 
-Since `main.py`, containing all code, is a short file with only a few functions, it's probably easier to directly copy-paste any relevant code into a personal project as opposed to installing a new module. For this reason, this repository does not contain a `setup.py` file.
+Since `main.py`, containing all code, is a short file with only a few functions, and is dependent on a particularl model framework, it's probably easier to fork and edit any relevant code into a personal project as opposed to installing a new module. For this reason, this repository does not contain a `setup.py` file.
 
 Running `main.py` works with:
 - Python modules:
