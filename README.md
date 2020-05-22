@@ -54,7 +54,7 @@ To keep things simple and clear, everything runs in series. If you'd like to see
 ### Code
 
 - `main.py`: a script that performs one full run through the methodology, using a single long simulation for a point estimate and multiple short simulations across bootstrap samples to estimate the standard deviation. It can be called from a command line.
-- `samplers.py`: functions for bootstrap sampling of the demand & wind time series: both the *months* and *weeks* scheme from the paper
+- `buq.py`: functions for the bootstrap uncertainty quantification (BUQ) algorithm, both the *months* and *weeks* scheme from the paper
 - `models.py`: some utility code for the models
 - `tests.py`: some tests to check if the models are behaving as expected.
 

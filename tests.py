@@ -192,13 +192,18 @@ def test_outputs_against_benchmarks():
                 estimate_with_stdev, benchmark_values
             )
             passing = False
+        else:
+            logging.info('Outputs match benchmark.')
         passing_all_benchmarks.append(passing)
 
-    if not all(passing_all_benchmarks):
+    passing = all(passing_all_benchmarks)
+    if not passing:
         logging.error('Some benchmarks have failed! '
                       'See log above for details')
+    else:
+        logging.info('All benchmarks have passed.')
 
-    return passing_all_benchmarks
+    return passing
 
 
 if __name__ == '__main__':
