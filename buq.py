@@ -305,7 +305,6 @@ def calculate_point_estimate_and_stdev(model_name_in_paper,
                                   index=point_estimate.index)
     logging.info('Done calculating point_estimate.')
 
-
     # Estimate standard deviation with BUQ algorithm
     logging.info('Calculating stdev estimate...')
     point_estimate_stdev = run_buq_algorithm(
