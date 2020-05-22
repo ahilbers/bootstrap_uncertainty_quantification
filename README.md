@@ -49,6 +49,7 @@ To keep things simple and clear, everything runs in series. If you'd like to see
 
 - `models/`: power system model generating files, for `Calliope` (see acknowledgements).
 - `data/`: demand and weather time series data
+- `test_benchmarks`: some benchmarks to see if install worked correctly -- used by `tests.py`
 
 
 ### Code
