@@ -6,7 +6,7 @@
 
 This repository contains example code related to the paper "Efficient quantification of the impact of demand and weather uncertainty in power system models".
 
-It also contains all source code and data associated with the three test-case models used in the paper (the *LP planning*, *MILP planning* and *operation* models). These models are modified versions from a more general class of test power system models, available as open-source software in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
+It also contains all source code and data associated with the three test-case models used in the paper (the *LP planning*, *MILP planning* and *operation* models). These models are modified versions of a more general class of test power system models, available open-source in [this repository](https://github.com/ahilbers/renewable_test_PSMs), where they are documented and available in a more general form. If you want to use these models for your own research, its easier to use that respository instead of this one.
 
 **Note**: In a previous iteration, this paper was called "Quantifying demand and weather uncertainty in power system models using the *m* out of *n* bootstrap, of which a preprint is available on arXiv [here](https://arxiv.org/abs/1912.10326). The models have changed slightly since that version. If you've come from that preprint, check out release v1.0.0 of this repository.
 
@@ -30,9 +30,11 @@ To run an example of the methodology, call
 python3 main.py
 ```
 
-from a command line. This runs a very simple example of the methodology. To customise it, it's easiest to change arguments directly in `main.py` -- the settings can be specified in the function `run_example`. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for the outputs of the `LP_planning` model, run across 2017 data.
+from a command line. This runs a simple example of the BUQ algorithm on the *LP_planning* model. To customise it, it's easiest to change arguments directly in `main.py` -- the settings can be specified in the function `run_example`. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for the outputs of the `LP_planning` model, run across 2017 data.
 
 The default settings use short samples, just to see if the methodology is working. If you want to actually use the method, it's recommended to increase the subsample length and number of subsamples. This can be done by changing the arguments in the `run_example` function in `main.py`.
+
+This repository contains a few tests and benchmarks which can be used to check if your install of this codebase has gone correct. Running `tests.py` from a command line starts a number of consistency tests and checks the outputs from a very simple application fo the BUQ algorithm against a set of benchmarks. It should take around 10-15 minutes to run, and will log whether all tests pass.
 
 To keep things simple and clear, everything runs in series. If you'd like to see the full scale code, where the bootstrap runs can be performed in parallel on a computing cluster, email [Adriaan Hilbers](mailto:a.hilbers17@imperial.ac.uk).
 
@@ -88,6 +90,8 @@ Models are constructed in the modelling framework `Calliope`, created by Stefan 
 
 - Pfenninger, S. and Pickering, B. (2018). Calliope: a multi-scale energy systems modelling framework. Journal of Open Source Software, 3(29), 825, doi:[10.21105/joss.00825](https://doi.org/10.21105/joss.00825).
 
-The demand and wind dataset is based on work by Hannah Bloomfield et al. Details can be found in the following paper:
+The demand and wind dataset is based on work by Hannah Bloomfield et al. Details can be found in the following paper and dataset:
 
 - Bloomfield, H. C., Brayshaw, D. J. and Charlton-Perez, A. (2019) Characterising the winter meteorological drivers of the European electricity system using Targeted Circulation Types. Meteorological Applications. ISSN 1469-8080 (In Press). doi:[10.1002/met.1858](https://doi.org/10.1002/met.1858)
+
+- HC Bloomfield, DJ Brayshaw, A Charlton-Perez (2020). MERRA2 derived time series of European country-aggregate electricity demand, wind power generation and solar power generation. University of Reading. Dataset. doi:[10.17864/1947.239](https://doi.org/10.17864/1947.239)

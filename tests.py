@@ -1,10 +1,10 @@
 """Tests to check whether the models behave as required."""
 
 
-import os
 import logging
+import numpy as np
 import pandas as pd
-import models
+import buq
 
 
 # Install costs and generation costs. These should match the information
@@ -156,3 +156,50 @@ def test_output_consistency_6_region(model, run_mode):
         passing = False
 
     return passing
+
+
+def test_outputs_against_benchmarks():
+    """Test model outputs against benchmarks."""
+
+    logging.basicConfig(
+        format='[%(asctime)s] %(levelname)s: %(message)s',
+        level=getattr(logging, 'INFO'),
+        datefmt='%Y-%m-%d,%H:%M:%S'
+    )
+
+    # Run each test simulation and see if results match benchmarks
+    benchmarks = {'LP_planning': 'test_benchmarks/LP_planning.csv',
+                  'operation': 'test_benchmarks/operation.csv'}
+    passing_all_benchmarks = []
+    for benchmark_name in benchmarks:
+        logging.info('\n\n\n\n\nStarting bechmark comparison for %s model',
+                     benchmark_name)
+        passing = True
+        np.random.seed(42)
+        estimate_with_stdev = buq.calculate_point_estimate_and_stdev(
+            model_name_in_paper=benchmark_name,
+            point_estimate_range=[2017, 2017],
+            bootstrap_scheme='weeks',
+            num_blocks_per_bin=1,
+            num_bootstrap_samples=10
+        )[:-1]
+        benchmark_values = pd.read_csv(benchmarks[benchmark_name],
+                                       index_col=0)[:-1]
+        if not np.allclose(estimate_with_stdev, benchmark_values):
+            logging.error(
+                'FAIL: Model outputs do not match benchmark outputs!\n'
+                'Model outputs: \n%s\n \nBenchmark outputs:\n%s\n',
+                estimate_with_stdev, benchmark_values
+            )
+            passing = False
+        passing_all_benchmarks.append(passing)
+
+    if not all(passing_all_benchmarks):
+        logging.error('Some benchmarks have failed! '
+                      'See log above for details')
+
+    return passing_all_benchmarks
+
+
+if __name__ == '__main__':
+    test_outputs_against_benchmarks()
