@@ -23,10 +23,15 @@ def bootstrap_sample_weeks(data, num_weeks_per_season):
 
     Parameters:
     -----------
-    data: pandas DataFrame with demand and wind data
-    num_weeks_per_season: number of weeks sampled from each season
+    data (pandas DataFrame) : demand and wind data
+    num_weeks_per_season (int) : number of weeks sampled from each season
+
+    Returns:
+    --------
+    output (pandas DataFrame) : the bootstrap sample
     """
 
+    # Sample weeks from the meteorological seasons
     bins = [[12, 1, 2], [3, 4, 5], [6, 7, 8], [9, 10, 11]]
     sample_length = 4*num_weeks_per_season*7*24
     output = np.zeros(shape=(sample_length, data.shape[1]))
@@ -63,13 +68,12 @@ def bootstrap_sample_months(data, num_years):
 
     Parameters:
     -----------
-    data: dataset with demand and wind data
-    num_years: number of years of the output sample
+    data (pandas DataFrame) : demand and wind data
+    num_years (int) : number of years of the output sample
 
     Returns:
     --------
-    year_np: numpy array, shape=(8760, 6), with the demand and
-        wind values across  hypothetical year
+    output (pandas DataFrame) : the bootstrap sample
     """
 
     years_np = np.zeros(shape=(8760*num_years, data.shape[1]))
@@ -93,12 +97,8 @@ def bootstrap_sample_months(data, num_years):
         years_np[8760*year_num:8760*(year_num+1)] = year_np
 
     # Change output from numpy array to pandas DataFrame
-    if data.shape[1] == 2:
-        output_columns = ['demand', 'wind']
-    if data.shape[1] == 6:
-        output_columns = ['demand_region2', 'demand_region4',
-                          'demand_region5', 'wind_region2',
-                          'wind_region5', 'wind_region6']
+    output_columns = ['demand_region2', 'demand_region4', 'demand_region5',
+                      'wind_region2', 'wind_region5', 'wind_region6']
     index = pd.to_datetime(np.arange(years_np.shape[0]),
                            origin='2020', unit='h')  # Dummy datetime index
     output = pd.DataFrame(years_np, index=index, columns=output_columns)
@@ -118,7 +118,7 @@ def run_simulation(model_name_in_paper, ts_data, run_id=0):
 
     Returns:
     --------
-    results: pandas DataFrame with model outputs
+    results (pandas DataFrame) : model outputs
     """
 
     start = time.time()
@@ -182,7 +182,7 @@ def run_bootstrap_simulation(model_name_in_paper, scheme,
 
     Returns:
     --------
-    results: pandas DataFrame with model outputs
+    results (pandas DataFrame) : model outputs
     """
 
     ts_data = import_time_series_data()
