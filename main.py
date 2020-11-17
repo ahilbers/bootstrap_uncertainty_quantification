@@ -26,7 +26,7 @@ def run_example():
     point_estimate_range = [2017, 2017]   # Includes endpoints
     bootstrap_scheme = 'weeks'
     num_blocks_per_bin = 3
-    num_bootstrap_samples = 30    # K in paper
+    num_bootstrap_samples = 10    # K in paper
     logging_level = 'INFO'   # use 'ERROR' for fewer logging statements
 
     logging.basicConfig(

@@ -4,7 +4,7 @@ import:
 
 model:
     name: 6-region model
-    calliope_version: 0.6.5
+    calliope_version: 0.6.6
     timeseries_data_path: ''
 
 run:
@@ -29,8 +29,8 @@ overrides:
             mode: operate
             cyclic_storage: False
             operation:
-                horizon: 672  # hours
-                window: 336  # hours
+                horizon: 720  # hours
+                window: 672  # hours
         locations:
             region1:
                 techs.ccgt_region1.constraints.energy_cap_equals: 31.00784

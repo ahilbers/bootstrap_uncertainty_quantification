@@ -20,9 +20,9 @@ To run an example of the methodology, call
 python3 main.py
 ```
 
-from a command line. This runs a simple example of the BUQ algorithm on the *LP_planning* model. The default settings take 10-15 minutes to run. To customise it, it's easiest to change arguments directly in `main.py` -- the settings can be specified in the function `run_example`. It creates a new directory called `outputs` with the point estimates and standard deviation estimates for the outputs of the `LP_planning` model, run across 2017 data.
+from a command line. This runs a simple example of the methodology on the *LP_planning* model. The default settings take 10-15 minutes to run. To customise it, it's easiest to change arguments directly in `main.py` -- the settings can be specified in the function `run_example`. In the default settings, it creates a new directory called `outputs` with the point estimates and standard deviation estimates for the outputs of the `operation` model, run across 2017 data. These are calculated by first running the model once across 2017 (to get the point estimate), followed by 10 bootstrap simulations of 12 weeks each (to get the error bars). You can change these settings in `main.py`.
 
-The default settings use short samples to run quickly. If you want to actually use the method, it's recommended to increase the subsample length and number of subsamples. This can be done by changing the arguments in the `run_example` function in `main.py`.
+The default settings use short samples to run quickly. If you want to actually use the method, it's recommended to increase the subsample length and number of bootstrap simulations. This can be done by changing the arguments in the `run_example` function in `main.py`. For faster results, run the bootstrap simulations in parallel.
 
 This repository also contains a few tests and benchmarks which can be used to check if the code is running as expected. Running `tests.py` from a command line starts a number of consistency tests and checks the outputs from a very simple application of the BUQ algorithm against a set of benchmarks. It should take around 10-15 minutes to run, and will raise warnings if any tests do not pass. 
 
@@ -55,7 +55,7 @@ Since `main.py`, containing all code, is a short file with only a few functions,
 
 Running `main.py` works with:
 - Python modules:
-  - `Calliope 0.6.5`:  see [this link](https://calliope.readthedocs.io/en/stable/user/installation.html) for installation.
+  - `Calliope 0.6.6`:  see [this link](https://calliope.readthedocs.io/en/stable/user/installation.html) for installation. Everything also works with `0.6.5`, and may work with many other versions.
   - Basic modules: `numpy`, `pandas`.
 - Other:
   - `cbc`: open-source optimiser: see [this link](https://projects.coin-or.org/Cbc) for installation. Other solvers (e.g. `gurobi`) are also possible -- the solver can be specified in `models/6_region/model.yaml`.
